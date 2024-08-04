@@ -1,22 +1,26 @@
 import type { NextPage } from 'next';
 import { Header } from '../../components/header';
 
-import { useReadContract } from 'wagmi'
+import { BaseError, useReadContract, useWaitForTransactionReceipt } from 'wagmi'
 
-import { abi } from "../../components/contract_abi.json";
+import { abi, address } from "../../components/contract_abi.json";
 import { FormEvent } from 'react';
 
 import { useWriteContract } from 'wagmi'
-
-// 0xBd99a2B0d57d34a246172032E4afFa112F9cf108
+import { Address } from 'viem';
 
 const CreateGrantForm: NextPage = () => {
 
     const { 
-        data: hash, 
+        data: hash,
+        error, 
         isPending, 
         writeContract 
     } = useWriteContract()
+
+    const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+      hash,
+    })
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -34,9 +38,14 @@ const CreateGrantForm: NextPage = () => {
         const deadline = Math.floor(futureTime / 1000);
 
 
+        // Get the prize value and convert it to ETH value
+        let price = Number(formData.get("price") as string)
+        price = price * (10**18);
+        const prizeValue = BigInt(price);
+
         // Write to smart contract
         writeContract({
-            address: '0xBd99a2B0d57d34a246172032E4afFa112F9cf108',
+            address: address as Address,
             abi,
             functionName: 'createGrantProposal',
             args: [
@@ -45,17 +54,9 @@ const CreateGrantForm: NextPage = () => {
                 formData.get("nb_projects"),
                 deadline
             ],
-            value: BigInt(100000000000000000) // TODO :: Need to see how we can pass it in the form 
+            value: prizeValue
         })
 
-        // const response = await fetch('/api/submit', {
-        //     method: 'POST',
-        //     body: formData,
-        // })
-
-        // // Handle response if necessary
-        // const data = await response.json()
-        // // ...
     }
 
     return (
@@ -98,6 +99,17 @@ const CreateGrantForm: NextPage = () => {
                                                 <input type="number" name="nb_projects" id="nb_projects" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
                                             </div>
 
+                                            <div className="md:col-span-5">
+                                                <label htmlFor="price">Price to distribute</label>
+                                                <input 
+                                                    type="number" 
+                                                    step="0.000001"
+                                                    name="price" 
+                                                    id="price" 
+                                                    className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" 
+                                                />
+                                            </div>
+
                                             <div className="md:col-span-5 text-right">
                                                 <div className="inline-flex items-end">
                                                     <button disabled={isPending} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -108,6 +120,11 @@ const CreateGrantForm: NextPage = () => {
 
 
                                             {hash && <div>Transaction Hash: {hash}</div>}
+                                            {isConfirming && <div>Waiting for confirmation...</div>}
+                                            {isConfirmed && <div>Transaction confirmed.</div>}
+                                            {error && (
+                                                <div>Error: {(error as BaseError).shortMessage || error.message}</div>
+                                            )}
 
                                         </div>
                                     </div>

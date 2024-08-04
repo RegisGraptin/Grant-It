@@ -38,10 +38,10 @@ struct ProjectGrantProposal {
 
 contract GrantManager is Ownable {
     
-    uint256 currentGrantId;
-    mapping (uint256 => GrantProposition) grantPropositions;
+    uint256 public currentGrantId;
+    mapping (uint256 => GrantProposition) public grantPropositions;
 
-    mapping (uint256 => mapping (uint256 => ProjectGrantProposal)) grantPropositionProjects;
+    mapping (uint256 => mapping (uint256 => ProjectGrantProposal)) public grantPropositionProjects;
 
     event NewGrantProposal(uint indexed grantId, string title);
     event NewGrantProject(uint indexed grantId, uint indexed projectId, string title);

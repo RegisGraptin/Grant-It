@@ -18,7 +18,7 @@ npx hardhat ignition deploy ./ignition/modules/GrantManager.ts --network localho
 
 ### Optimism Sepolia
 
-npx hardhat ignition deploy ./ignition/modules/GrantManager.ts --network optimismSepolia
+npx hardhat ignition deploy ./ignition/modules/GrantManager.ts --network optimismSepolia --reset
 
-npx hardhat verify --network optimismSepolia 0xBd99a2B0d57d34a246172032E4afFa112F9cf108
+npx hardhat verify --network optimismSepolia 0x1Fe4A9694eA00d7148838ad7a30cF1546594a81a
 
