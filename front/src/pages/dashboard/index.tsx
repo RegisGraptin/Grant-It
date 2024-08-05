@@ -5,6 +5,7 @@ import { useReadContract, useReadContracts } from 'wagmi'
 
 import { abi, address } from "../../components/contract_abi.json";
 import { Address } from 'viem';
+import { GrantCard } from '../../components/grant_card';
 
 const Dashboard: NextPage = () => {
 
@@ -38,7 +39,7 @@ const Dashboard: NextPage = () => {
     <div>
         <Header />
 
-        <section>
+        <section className='container mx-auto px-4'>
           {/* <article fro */}
 
           {lastGrantLoading && (
@@ -50,11 +51,16 @@ const Dashboard: NextPage = () => {
           )}
 
           <div>
-            {grantsDetail && grantsDetail.map(function(grantDetail, i){
-                return <div key={i}>
-                    <h2>Grant detail</h2>
-                    <p>{grantDetail.result}</p>
-                </div>
+          {grantsDetail && grantsDetail.map(function(grantDetail, i){
+              console.log("result");
+              console.log(grantDetail.result);
+                return <GrantCard key={i} grantDetail={grantDetail.result} />
+            })}
+
+{grantsDetail && grantsDetail.map(function(grantDetail, i){
+              console.log("result");
+              console.log(grantDetail.result);
+                return <GrantCard key={i} grantDetail={grantDetail.result} />
             })}
             
           </div>
