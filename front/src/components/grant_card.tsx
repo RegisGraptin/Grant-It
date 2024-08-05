@@ -1,9 +1,14 @@
 
-
+import { VscGitStashApply } from "react-icons/vsc";
+import { GrView } from "react-icons/gr";
+import { useState } from "react";
+import { ApplyProjectModal } from "./apply_project_modal";
 
 export const GrantCard = (props: any) => {
 
     console.log(props.grantDetail);
+
+    const [showApplyProject, setShowApplyProject] = useState(false);
 
     return (
         <>
@@ -18,25 +23,30 @@ export const GrantCard = (props: any) => {
                     {props.grantDetail[2]}
                 </p> */}
                     <div className="flex-2">
-                        <a href="#" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
-                            <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                            </svg>
-                            See Projects
-                        </a>
-
-                        <button type="button" className="px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <svg className="w-3 h-3 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                                <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-                                <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
-                            </svg>
+                        
+                        <button 
+                            onClick={() => setShowApplyProject(true)} 
+                            type="button" 
+                            className="mr-2 px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                            <VscGitStashApply className="w-4 h-4 text-white me-2 mr-2" />
                             Apply
+                        </button>
+
+                        <button type="button" className="mr-2 px-3 py-2 text-sm font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <GrView className="w-4 h-4 text-white me-2 mr-2" />
+                            View Projects
                         </button>
                     </div>
                 </div>
+                <ApplyProjectModal show={showApplyProject} close={() => setShowApplyProject(false)} />
             </div>
 
         </>
     )
 
 }
+
+<button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+Toggle modal
+</button>
