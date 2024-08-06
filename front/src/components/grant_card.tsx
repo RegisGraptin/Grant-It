@@ -39,7 +39,11 @@ export const GrantCard = (props: any) => {
                         </button>
                     </div>
                 </div>
-                <ApplyProjectModal show={showApplyProject} close={() => setShowApplyProject(false)} />
+                <ApplyProjectModal 
+                    show={showApplyProject} 
+                    close={() => setShowApplyProject(false)} 
+                    grantProposalId={props.grantDetail[0]}
+                />
             </div>
 
         </>
