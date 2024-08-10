@@ -12,9 +12,9 @@ export const Header = () => {
               <nav className="border-gray-200 px-4 lg:px-6 py-2.5">
                   <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                       <a href="/" className="flex items-center">
-                          <img src="../images/logo.svg" className="mr-3 h-6 sm:h-16" alt="Title" />
+                          <img src="/images/logo.png" className="mr-3 h-6 sm:h-16" alt="Title" />
                           <span className="self-center text-xl font-semibold whitespace-nowrap">
-                              Title
+                              Grant It
                           </span>
                       </a>
                       <div className="flex items-center lg:order-2">
@@ -36,6 +36,11 @@ export const Header = () => {
                               <li>
                                   <Link href="/dashboard" className="block py-2 pr-4 pl-3 rounded lg:text-primary-700 lg:p-0" >
                                       Dashboard
+                                  </Link>
+                              </li>
+                              <li>
+                                  <Link href="/dashboard/create" className="block py-2 pr-4 pl-3 rounded lg:text-primary-700 lg:p-0" >
+                                      Create
                                   </Link>
                               </li>
                           </ul>

@@ -20,5 +20,9 @@ npx hardhat ignition deploy ./ignition/modules/GrantManager.ts --network localho
 
 npx hardhat ignition deploy ./ignition/modules/GrantManager.ts --network optimismSepolia --reset
 
-npx hardhat verify --network optimismSepolia 0x1Fe4A9694eA00d7148838ad7a30cF1546594a81a
+npx hardhat verify --network optimismSepolia 0x63aB4520B0dD24c11122e21b637B1bCAD0A7415b
 
+
+## Contract deployed 
+
+https://optimism-sepolia.blockscout.com/address/0x63aB4520B0dD24c11122e21b637B1bCAD0A7415b

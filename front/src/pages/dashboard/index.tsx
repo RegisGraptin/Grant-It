@@ -9,19 +9,11 @@ import { GrantCard } from '../../components/grant_card';
 
 const Dashboard: NextPage = () => {
 
-
-  const { data: owner } = useReadContract({
-    address: address as Address,
-    abi,
-    functionName: 'owner',
-    args: [],
-  })
-
   const { data: lastGrantId, isLoading: lastGrantLoading } = useReadContract({
     address: address as Address,
     abi,
     functionName: 'currentGrantId',
-    args: [],    
+    args: [],
   })
 
   const { data: grantsDetail, isLoading: grantsDetailLoading } = useReadContracts({
@@ -37,40 +29,27 @@ const Dashboard: NextPage = () => {
 
   return (
     <div>
-        <Header />
+      <Header />
 
-        <section className='container mx-auto px-4'>
-          {/* <article fro */}
+      <section className='container mx-auto px-4'>
 
-          {lastGrantLoading && (
-            <div>Loading id..</div>
-          )}
+        {lastGrantLoading && (
+          <div>Loading id..</div>
+        )}
 
-          {grantsDetailLoading && (
-            <div>Loading details..</div>
-          )}
+        {grantsDetailLoading && (
+          <div>Loading details..</div>
+        )}
 
-          <div>
-          {grantsDetail && grantsDetail.map(function(grantDetail, i){
-              console.log("result");
-              console.log(grantDetail.result);
-                return <GrantCard key={i} grantDetail={grantDetail.result} />
-            })}
+        <div>
+          {grantsDetail && grantsDetail.map(function (grantDetail, i) {
+            return <GrantCard key={i} grantDetail={grantDetail.result} />
+          })}
 
-{grantsDetail && grantsDetail.map(function(grantDetail, i){
-              console.log("result");
-              console.log(grantDetail.result);
-                return <GrantCard key={i} grantDetail={grantDetail.result} />
-            })}
-            
-          </div>
+        </div>
 
 
-        </section>
-
-        <h2>Dashboard</h2>
-        <div>Owner: {owner?.toString()}</div>
-        <div>Last ID: {lastGrantId?.toString()}</div>
+      </section>
     </div>
   );
 };

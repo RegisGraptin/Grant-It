@@ -114,7 +114,7 @@ contract GrantManager is Ownable, IEntropyConsumer {
         string memory _description
     ) public {
         require(grantProposalId < currentGrantId, "INVALID_GRANT_PROPOSAL_ID");
-        require(grantPropositions[grantProposalId].endApplyTime < block.timestamp, "NO_MORE_APPLICATION");
+        require(grantPropositions[grantProposalId].endApplyTime > block.timestamp, "NO_MORE_APPLICATION");
 
         // Retrieve project id based on the grant
         uint256 _projectId = grantPropositions[grantProposalId].numberSubmittedProject;
@@ -140,9 +140,8 @@ contract GrantManager is Ownable, IEntropyConsumer {
         uint256 projectId
     ) public {
         require(grantProposalId < currentGrantId, "INVALID_GRANT_PROPOSAL_ID");
-        require(grantPropositions[grantProposalId].numberSubmittedProject < projectId, "INVALID_PROJECT_ID");
+        require(projectId < grantPropositions[grantProposalId].numberSubmittedProject, "INVALID_PROJECT_ID");
         require(grantPropositions[grantProposalId].owner == msg.sender, "INVALID_GRANT_OWNER");
-        require(grantProposalId < currentGrantId, "INVALID_GRANT_PROPOSAL_ID");
 
         grantPropositionProjects[grantProposalId][projectId].status = ProjectStatus.Eligible;
 
@@ -152,9 +151,10 @@ contract GrantManager is Ownable, IEntropyConsumer {
     function endApplication(
         uint256 grantProposalId,
         bytes32 randomNumber
-    ) public {
+    ) public payable {
         require(grantProposalId < currentGrantId, "INVALID_GRANT_PROPOSAL_ID");
-        require(grantPropositions[grantProposalId].endApplyTime >= block.timestamp, "STILL_APPLICATION");
+        // FIXME :: remove for demo purpose
+        // require(grantPropositions[grantProposalId].endApplyTime <= block.timestamp, "STILL_APPLICATION"); 
         require(grantPropositions[grantProposalId].owner == msg.sender, "INVALID_GRANT_OWNER");
 
         // Count number of elligible project
@@ -210,7 +210,8 @@ contract GrantManager is Ownable, IEntropyConsumer {
         uint256 grantProposalId
     ) public {
         require(grantProposalId < currentGrantId, "INVALID_GRANT_PROPOSAL_ID");
-        require(grantPropositions[grantProposalId].endApplyTime >= block.timestamp, "STILL_APPLICATION");
+        // FIXME :: Demo purpose
+        // require(grantPropositions[grantProposalId].endApplyTime <= block.timestamp, "STILL_APPLICATION");
         require(grantPropositions[grantProposalId].owner == msg.sender, "INVALID_GRANT_OWNER");
         require(grantRandomnessConfiguration[grantProposalId].numberEligibleProjects > 0, "NO_ELIGIBLE_PROJECTS");
 
@@ -254,8 +255,5 @@ contract GrantManager is Ownable, IEntropyConsumer {
         }
 
     }
-
-
-
 
 }
