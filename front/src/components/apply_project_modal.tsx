@@ -98,13 +98,13 @@ export const ApplyProjectModal = (props: any) => {
                                         </p>
 
                                         <div className="md:col-span-5">
-                                            <label htmlFor="description">Description</label>
+                                            <label htmlFor="description">Presentation</label>
                                             <textarea
                                                 id="description"
                                                 name='description'
                                                 rows={4}
                                                 className="block p-2.5 w-full text-sm bg-gray-50 rounded-lg border border-gray-50"
-                                                placeholder="Description of the grant round...">
+                                                placeholder="Present your team...">
                                             </textarea>
                                         </div>
 
