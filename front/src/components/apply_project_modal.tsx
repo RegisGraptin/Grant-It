@@ -42,7 +42,7 @@ export const ApplyProjectModal = (props: any) => {
 
     }
 
-    function handleChange(i: number, event) {
+    function handleChange(i: number, event: any) {
         const values = [...teamInput];
         values[i] = event.target.value;
         setTeamInput(values);
