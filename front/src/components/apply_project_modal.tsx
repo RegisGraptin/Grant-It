@@ -98,7 +98,7 @@ export const ApplyProjectModal = (props: any) => {
                                         </p>
 
                                         <div className="md:col-span-5">
-                                            <label htmlFor="description">Descripton</label>
+                                            <label htmlFor="description">Description</label>
                                             <textarea
                                                 id="description"
                                                 name='description'
